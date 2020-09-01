@@ -5,31 +5,29 @@ const express       = require('express'),
       path          = require('path'),
       cors          = require('cors'),
       createError   = require('http-errors'),
-      cookieParser  = require('cookie-parser')
-
-const keys         = require('./config/keys')
+      cookieParser  = require('cookie-parser'),
+      keys        = require('config')
 
 const indexRouter  = require('./routes/api/index'),
       authRouter   = require('./routes/api/auth'),
       profileRouter = require('./routes/api/profile'),
       postRouter    = require('./routes/api/post')
 
-require('./utils/passport-middleware.js')
-require('dotenv').config()
+const connectDB = require('./utils/db')
 
-const db = keys.mongoURI
+require('./utils/passport-middleware')
+
+const db = keys.get('mongoURI')
 
 const app = express()
+
+connectDB()
 
 app.use(cors({origin: '*'}))
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.use(cookieParser(keys.secretOrKey))
-
-mongoose.connect(db, { useUnifiedTopology: true, useNewUrlParser: true })
-         .then(() => console.log("MongoDB Connection Established"))
-         .catch((err) => console.log(err))
+app.use(cookieParser(keys.get('secretOrKey')))
 
 app.use(passport.initialize())
 

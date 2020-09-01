@@ -4,12 +4,12 @@ const passport      = require('passport'),
       JwtStrategy   = require('passport-jwt').Strategy,
       ExtractJwt    = require('passport-jwt').ExtractJwt
 
-const config        = require('../config/keys.js'),
+const keys          = require('config'),
       Auth          = require('../models/auth-model.js')
 
 var options = {}
 options.jwtFromRequest = (req) => req.signedCookies['jwtToken'] || req.cookies.jwtToken
-options.secretOrKey = config.secretOrKey
+options.secretOrKey = keys.get('secretOrKey')
 
 // JwtStrategy for request authentication
 passport.use(new JwtStrategy(options, async (jwtPayLoad, done) => {

@@ -3,15 +3,15 @@ const express  = require('express'),
       gravatar = require('gravatar'),
       bcrypt   = require('bcrypt'),
       jwt      = require('jsonwebtoken'),
-      passport = require('passport')
+      passport = require('passport'),
+      keys     = require('config')
 
 const { check, validationResult } = require('express-validator')
 
-const keys             = require('../../config/keys')
 const Auth             = require('../../models/auth-model')
 
 const tokenList = {}
-const TOKENLIFE = keys.tokenLife, REFRESHLIFE = keys.refreshTokenLife, SECRET = keys.secretOrKey
+const TOKENLIFE = keys.get('tokenLife'), REFRESHLIFE = keys.get('refreshTokenLife'), SECRET = keys.get('secretOrKey')
 
 router.post('/register', 
     [
