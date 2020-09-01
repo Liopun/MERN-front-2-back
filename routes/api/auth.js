@@ -7,7 +7,7 @@ const express  = require('express'),
 
 const { check, validationResult } = require('express-validator')
 
-const keys             = require('../../_config/keys')
+const keys             = require('../../config/keys')
 const Auth             = require('../../models/auth-model')
 
 const tokenList = {}

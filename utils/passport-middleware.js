@@ -4,7 +4,7 @@ const passport      = require('passport'),
       JwtStrategy   = require('passport-jwt').Strategy,
       ExtractJwt    = require('passport-jwt').ExtractJwt
 
-const config        = require('../_config/keys.js'),
+const config        = require('../config/keys.js'),
       Auth          = require('../models/auth-model.js')
 
 var options = {}

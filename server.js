@@ -7,14 +7,14 @@ const express       = require('express'),
       createError   = require('http-errors'),
       cookieParser  = require('cookie-parser')
 
-const keys         = require('./_config/keys')
+const keys         = require('./config/keys')
 
 const indexRouter  = require('./routes/api/index'),
       authRouter   = require('./routes/api/auth'),
       profileRouter = require('./routes/api/profile'),
       postRouter    = require('./routes/api/post')
 
-require('./_utils/passport-middleware.js')
+require('./utils/passport-middleware.js')
 require('dotenv').config()
 
 const db = keys.mongoURI
@@ -33,15 +33,24 @@ mongoose.connect(db, { useUnifiedTopology: true, useNewUrlParser: true })
 
 app.use(passport.initialize())
 
-app.use('/api/', indexRouter)
+// app.use('/api/', indexRouter)
 app.use('/api/auth', authRouter)
 app.use('/api/profile', profileRouter)
 app.use('/api/posts', postRouter)
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    next(createError(404))
-})
+// app.use(function(req, res, next) {
+//     next(createError(404))
+// })
+
+// Serve static assets in production
+if(process.env.NODE_ENV === 'production') {
+    // Set static folder
+    app.use(express.static('client/build'))
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    })
+}
 
 const PORT = process.env.PORT || 5000
 
