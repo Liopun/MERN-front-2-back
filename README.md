@@ -4,7 +4,7 @@ https://serene-harbor-42747.herokuapp.com/
 
 ## App Structure
 ``` bash
-|-- client -->
+|-- client
 	 |-- [+] public --> auto build generated folder
          |-- src
 	       |-- actions 
