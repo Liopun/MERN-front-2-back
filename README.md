@@ -3,6 +3,7 @@
 https://serene-harbor-42747.herokuapp.com/
 
 ## App Structure
+``` bash
 |-- client -->
 	 |-- [+] public --> auto build generated folder
          |-- src
@@ -58,3 +59,4 @@ https://serene-harbor-42747.herokuapp.com/
 	|-- db.js
 	|-- passport-middleware.js
 |-- server.js
+```
